@@ -29,32 +29,24 @@ class User(db.Model):
 
         return {
             "id": self.id,
-            "username": self.username,
+            "name": self.name,
             "privileges": self.privileges
         }
     
     id = db.Column(db.Integer,
                    primary_key=True,
                    autoincrement=True)
-    username = db.Column(db.String, 
-                         nullable=False, 
-                         unique=True)
+    name = db.Column(db.String, 
+                     nullable=False)
+    email = db.Column(db.String,
+                      nullable=False,
+                      unique=True)
     privileges = db.Column(db.Integer,
                       nullable=False)
     password = db.Column(db.String,
                          nullable=False)
-    first_name = db.Column(db.String)                         
-    last_name = db.Column(db.String)                         
-    profile_pic_image_url = db.Column(db.String)
-    fav_bike = db.Column(db.String(40))
-    bike_image_url = db.Column(db.String)
-    default_bike_type = db.Column(db.String(8),
-                                  default="regular")
-    default_geocode_lat = db.Column(db.Float)
-    default_geocode_lng = db.Column(db.Float)
-    units = db.Column(db.String(8), default="imperial")
-
-    room = db.relationship("RoomData", cascade="all, delete", backref="user_route")
+    
+    room = db.relationship("RoomData", cascade="all, delete", backref="user_room")
 
     def __repr__(self):
         return f'User#{self.id}: {self.username} {self.email} {self.privileges_logical}'
@@ -90,76 +82,23 @@ class RoomData(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "route_name": self.route_name,
+            "template": self.template,
             "timestamp": self.timestamp,
-            "user_id": self.user_id
-        }
-
-    id = db.Column(db.Integer,
-                   primary_key=True,
-                   autoincrement=True)
-    route_name = db.Column(db.String(40),
-                           default="untitled")  
-    bike_type = db.Column(db.String(8),
-                          default="regular")
-    timestamp = db.Column(db.DateTime,
-                          default=datetime.utcnow())
-    user_id = db.Column(db.Integer,
-                        db.ForeignKey("users.id"))
-
-    checkpoint_route = db.relationship("CheckpointRoute", cascade="all, delete", backref="route_cpr")
-
-class Checkpoint(db.Model):
-    """Checkpoint model for intermediate geocoded points used as either stopping places or to alter route. 
-    """
-
-    __tablename__ = "checkpoints"
-
-    def serialize(self):
-        return {
-            "id": self.id,
             "user_id": self.user_id,
-            "checkpoint_display_name": self.checkpoint_display_name,
-            "checkpoint_lat": self.checkpoint_lat,
-            "checkpoint_lng": self.checkpoint_lng
+            "color": self.color,
+            "message": self.message,
+            "animal": self.animal,
+            "recipient": self.recipient
         }
 
     id = db.Column(db.Integer,
                    primary_key=True,
                    autoincrement=True)
+    template = db.Column(db.String(20),
+                         nullable=False)  
+    color = db.Column(db.String(20),
+                      nullable=False)
     user_id = db.Column(db.Integer,
                         db.ForeignKey("users.id"))
-    checkpoint_display_name = db.Column(db.String)
-    checkpoint_lat = db.Column(db.Float,
-                        nullable=False)
-    checkpoint_lng = db.Column(db.Float,
-                        nullable=False)
-
-    checkpoint_route = db.relationship("CheckpointRoute", backref="checkpoint")
-
-
-class CheckpointRoute(db.Model):
-    """Route-checkpoint model shows in what route and in what order checkpoints are used. 
-    """
-
-    __tablename__ = "checkpoints_routes"
-
-    def serialize(self):
-        return {
-            "id": self.id,
-            "route_id": self.route_id,
-            "checkpoint_id": self.checkpoint_id,
-            "route_order": self.route_order
-        }
-
-    id = db.Column(db.Integer,
-                   primary_key=True,
-                   autoincrement=True)
-    route_id = db.Column(db.Integer,
-                         db.ForeignKey("routes.id"), 
-                         nullable=False)
-    checkpoint_id = db.Column(db.Integer,
-                              db.ForeignKey("checkpoints.id"),
-                              nullable=False)
-    route_order = db.Column(db.Integer,
-                            nullable=False)
+    recipient = db.Column(db.String(40))
+    animal = db.Columng(db.String(40))
