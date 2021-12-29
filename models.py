@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-from flask_bcrypt import Bcrypt
+from bcrypt import Bcrypt
 from datetime import datetime
 import json
 
@@ -100,5 +100,7 @@ class RoomData(db.Model):
                       nullable=False)
     user_id = db.Column(db.Integer,
                         db.ForeignKey("users.id"))
-    recipient = db.Column(db.String(40))
-    animal = db.Columng(db.String(40))
+    message = db.Column(db.String(256),
+                        nullable=False)
+    recipient = db.Column(db.String)
+    animal = db.Columng(db.String)
