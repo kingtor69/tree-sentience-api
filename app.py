@@ -12,7 +12,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://{DBUSER}:{DBPW}@localhost/cust
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
 
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'really_very_secret')
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'so_very_secret')
 app.config['DEBUG_TB_INTERCEPT_REQUESTS'] = False
 debug = DebugToolbarExtension(app)
 
@@ -26,7 +26,7 @@ connect_db(app)
 
 
 ### room data routes
-@app.route('/room-data', METHODS=["POST"])
+@app.route('/room-data', methods=["POST"])
 def create_room_data():
     try:
         room_data = {}
@@ -35,7 +35,7 @@ def create_room_data():
         code = 418 if is_today_april_fools() else 400
         return jsonify({"Errors": {"roomData error": "Insufficient data"}}, code)
 
-@app.route('/room-data/<int:room_id>', METHODS=["GET"])
+@app.route('/room-data/<int:room_id>', methods=["GET"])
 def read_room_data(room_id):
     """Return all room information."""
     room_data = {}
@@ -45,7 +45,7 @@ def read_room_data(room_id):
         return jsonify({"Errors": {"room error": f"No room with ID {room_id} found."}}, 404)
     return jsonify({"roomData": room_data}, 200)
 
-@app.route('/room-data/<int:room_id>', METHODS=["PATCH"])
+@app.route('/room-data/<int:room_id>', methods=["PATCH"])
 def update_room_data(room_id):
     """Return all room information."""
     room_data = {}
@@ -64,7 +64,7 @@ def update_room_data(room_id):
         return jsonify({"Errors": {"room error": f"Insuffient or invalid data"}}, code)
     return jsonify({"roomData": new_room_data}, 200)
 
-@app.route('/room-data/<int:room_id>', METHODS=["DELETE"])
+@app.route('/room-data/<int:room_id>', methods=["DELETE"])
 def delete_room_data(room_id):
     """Delete room data, return confirmation message."""
     try:

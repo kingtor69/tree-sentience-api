@@ -1,11 +1,9 @@
 from flask_sqlalchemy import SQLAlchemy
-from bcrypt import Bcrypt
+import bcrypt
 from datetime import datetime
 import json
 
 db = SQLAlchemy()
-
-bcrypt = Bcrypt()
 
 def connect_db(app):
     db.app = app
@@ -103,4 +101,4 @@ class RoomData(db.Model):
     message = db.Column(db.String(256),
                         nullable=False)
     recipient = db.Column(db.String)
-    animal = db.Columng(db.String)
+    animal = db.Column(db.String)

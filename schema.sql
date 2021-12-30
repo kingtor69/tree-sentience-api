@@ -1,17 +1,24 @@
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS room_data;
+
 CREATE TABLE users (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR NOT NULL,
-    email VARCHAR NOT NULL,
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL,
     privileges INTEGER NOT NULL,
-    password VARCHAR NOT NULL
+    password TEXT NOT NULL
 );
 
 CREATE TABLE room_data(
-    id SERIAL INT PRIMARY KEY,
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     template VARCHAR(20) NOT NULL,
     color VARCHAR(20) NOT NULL,
-    user_id INT FOREIGN KEY REFERENCES users(id),
     message VARCHAR(256) NOT NULL,
-    recipient VARCHAR,
-    ANIMAL VARCHAR
+    recipient TEXT,
+    ANIMAL TEXT,
+    user_id INT NOT NULL,
+
+    FOREIGN KEY (user_id)
+        REFERENCES users(id)
+        ON DELETE CASCADE
 );

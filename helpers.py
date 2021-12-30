@@ -5,8 +5,8 @@ from datetime import datetime
 #######################
 ## helpful variables ##
 #######################
-DBUSER = os.environ("MYSQL_USER") or "username"
-DBPW = os.environ("MYSQL_PW") or "password"
+DBUSER = os.environ["MYSQL_USER"]
+DBPW = os.environ["MYSQL_PW"]
 
 CURR_USER = "logged_in_user"
 
