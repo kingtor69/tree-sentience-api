@@ -7,10 +7,6 @@ from app import app
 
 db = SQLAlchemy()
 
-app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://{DBUSER}:{DBPW}@localhost/custom_mc'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_ECHO'] = True
-
 def connect_db(app):
     db.app = app
     db.init_app(app)
