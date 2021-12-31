@@ -3,18 +3,20 @@ import bcrypt
 from datetime import datetime
 import json
 from helpers import *
+from app import app
 
 db = SQLAlchemy()
+
+app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://{DBUSER}:{DBPW}@localhost/custom_mc'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_ECHO'] = True
 
 def connect_db(app):
     db.app = app
     db.init_app(app)
 
-USER_PRIMARY = "email"
-USER_REQUIRED = [""]
-
 class User(db.Model):
-    """User model. user.id is used in Route and Checkpoint models as those will both be stored within the user. 
+    """User model. For end users, this is transparent and only used to keep track of which email address is associated with which room. Their passwords are created in app.py and are unimportant as they don't ever need to log in. For creators and admins, an actual password should be entered. 
     """
 
     __tablename__ = "users"
@@ -41,22 +43,22 @@ class User(db.Model):
     name = db.Column(db.String, 
                      nullable=False)
     privileges = db.Column(db.Integer,
-                           default=1)
+                           nullable=False)
     password = db.Column(db.String,
                          nullable=False)
     
     def __repr__(self):
-        return f'User#{self.id}: {self.username} {self.email} {self.privileges_logical}'
+        return f'<User {self.email}: {self.privileges_logical}>'
 
     @classmethod
-    def hashpass(cls, username, password):
-        """Generate new user with username and hashed password only, other fields still to be populated.
+    def hashpass(cls, email, password, privileges):
+        """Generate new user with email, password and privileges.
         """
 
         hashed = bcrypt.generate_password_hash(password)
         hashed_utf8 = hashed.decode("utf8")
 
-        return cls(username=username, password=hashed_utf8)
+        return cls(email=email, password=hashed_utf8, privileges=privileges)
 
     @classmethod
     def authenticate(cls, username, password):

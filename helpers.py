@@ -44,14 +44,6 @@ def logical_date_time(timestamp):
 
     return f'{timestamp.year} {months[timestamp.month]} {timestamp.day}, {hour}:{timestamp.minute}{am_or_pm}'
 
-def is_today_april_fools():
-    now=datetime.now()
-    today = now.strftime("%D")
-    today_split = today.split('/')
-    if today_split[0] == "04" and today_split[1] == "01":
-        return True
-    return False
-
 def concatinate_lists(list_of_lists):
     """concatinates a list of lists into one list
     
@@ -64,3 +56,16 @@ def concatinate_lists(list_of_lists):
             concatinated_list.append(item)
 
     return concatinated_list
+
+########################
+## Are you a teapot?  ##
+########################
+def is_today_april_fools():
+    now=datetime.now()
+    today = now.strftime("%D")
+    today_split = today.split('/')
+    if today_split[0] == "04" and today_split[1] == "01":
+        return True
+    return False
+
+BAD_DATA_CODE = 418 if is_today_april_fools() else 400

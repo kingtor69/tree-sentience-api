@@ -1,22 +1,19 @@
+import os
 from flask import Flask, request, render_template, redirect, flash, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
 import requests
-import os
 
 from models import *
 from helpers import *
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://{DBUSER}:{DBPW}@localhost/custom_mc'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_ECHO'] = True
-
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'so_very_secret')
 app.config['DEBUG_TB_INTERCEPT_REQUESTS'] = False
 debug = DebugToolbarExtension(app)
 
 connect_db(app)
+
 
 ###########################
 #### RESTful API routes ###
@@ -26,22 +23,34 @@ connect_db(app)
 @app.route('/user', methods=["POST"])
 def create_new_user():
     try:
-        user_data = {}
-        
+        privileges = 2
+        dummy_password = "p4s$w0rD"
+        if "privileges" in request:
+            try:
+                privies = int(request.privileges)
+                if privies > 0 and privies < 2:
+                    privileges = privies
+                    dummy_password = False
+            except:
+                return jsonify({"Errors": {"user data error"}}, BAD_DATA_CODE)
+
+        password = dummy_password if dummy_password else request.password
+        new_user = User.hashpass(request.email, password, privileges)
+        db.session.add(new_user)
+        db.session.commit()
+
     except: 
-        code = 418 if is_today_april_fools() else 400
-        return jsonify({"Errors": {"roomData error": "Insufficient data"}}, code)
+        return jsonify({"Errors": {"user error": "Insufficient data"}}, BAD_DATA_CODE)
 
 ### room data routes
 @app.route('/room-data', methods=["POST"])
 def create_room_data():
     try:
         room_data = {}
-        
+                
         return(jsonify({"roomData", room_data}))
     except:
-        code = 418 if is_today_april_fools() else 400
-        return jsonify({"Errors": {"roomData error": "Insufficient data"}}, code)
+        return jsonify({"Errors": {"roomData error": "Insufficient data"}}, BAD_DATA_CODE)
 
 @app.route('/room-data/<int:room_id>', methods=["GET"])
 def read_room_data(room_id):
@@ -68,8 +77,7 @@ def update_room_data(room_id):
         for key in room_data:
             new_room_data[key] = input_data[key] or room_data[key]
     except: 
-        code = 418 if is_today_april_fools() else 400
-        return jsonify({"Errors": {"room error": f"Insuffient or invalid data"}}, code)
+        return jsonify({"Errors": {"room error": f"Insuffient or invalid data"}}, BAD_DATA_CODE)
     return jsonify({"roomData": new_room_data}, 200)
 
 @app.route('/room-data/<int:room_id>', methods=["DELETE"])
@@ -84,6 +92,5 @@ def delete_room_data(room_id):
         RoomData.query.delete(room_id)
         db.session.commit()
     except:
-        code = 418 if is_today_april_fools() else 400
-        return jsonify({"Errors": {"room error": f"Insuffient or invalid data"}}, code)
+        return jsonify({"Errors": {"room error": f"Insuffient or invalid data"}}, BAD_DATA_CODE)
         
