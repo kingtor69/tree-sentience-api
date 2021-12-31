@@ -7,6 +7,8 @@ from datetime import datetime
 #######################
 DBUSER = os.environ["MYSQL_USER"]
 DBPW = os.environ["MYSQL_PW"]
+PAYPAL_USER = os.environ["PAYPAL_USER"]
+PAYPAL_TOKEN = os.environ["PAYPAL_TOKEN"]
 
 CURR_USER = "logged_in_user"
 
@@ -49,3 +51,16 @@ def is_today_april_fools():
     if today_split[0] == "04" and today_split[1] == "01":
         return True
     return False
+
+def concatinate_lists(list_of_lists):
+    """concatinates a list of lists into one list
+    
+    >>> concatinate_lists( [ [1, 2, 3], [4, 5, 6] ] )
+    [1, 2, 3, 4, 5, 6]
+    """
+    concatinated_list = []
+    for list in list_of_lists:
+        for item in list:
+            concatinated_list.append(item)
+
+    return concatinated_list

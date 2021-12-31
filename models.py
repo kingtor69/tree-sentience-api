@@ -2,6 +2,7 @@ from flask_sqlalchemy import SQLAlchemy
 import bcrypt
 from datetime import datetime
 import json
+from helpers import *
 
 db = SQLAlchemy()
 
@@ -9,6 +10,8 @@ def connect_db(app):
     db.app = app
     db.init_app(app)
 
+USER_PRIMARY = "email"
+USER_REQUIRED = [""]
 
 class User(db.Model):
     """User model. user.id is used in Route and Checkpoint models as those will both be stored within the user. 
@@ -26,26 +29,22 @@ class User(db.Model):
             self.privileges_logical = "end_user"
 
         return {
-            "id": self.id,
+            "email": self.email,
             "name": self.name,
-            "privileges": self.privileges
+            "privileges": self.privileges_logical
         }
     
-    id = db.Column(db.Integer,
-                   primary_key=True,
-                   autoincrement=True)
-    name = db.Column(db.String, 
-                     nullable=False)
     email = db.Column(db.String,
+                      primary_key=True,
                       nullable=False,
                       unique=True)
+    name = db.Column(db.String, 
+                     nullable=False)
     privileges = db.Column(db.Integer,
-                      nullable=False)
+                           default=1)
     password = db.Column(db.String,
                          nullable=False)
     
-    room = db.relationship("RoomData", cascade="all, delete", backref="user_room")
-
     def __repr__(self):
         return f'User#{self.id}: {self.username} {self.email} {self.privileges_logical}'
 
@@ -70,6 +69,14 @@ class User(db.Model):
             return user
 
         return False
+
+ROOM_REQUIRED = ['template', 'color', 'message']
+ROOM_OPTIONAL = ['recipient', 'animal']
+ROOM_PRIMARY = 'id'
+ROOM_FOREIGN = 'user_id'
+
+ROOM_KEYS = [ ROOM_PRIMARY, ROOM_FOREIGN ]
+ROOM_FIELDS = concatinate_lists( [ ROOM_REQUIRED, ROOM_OPTIONAL ] )
 
 class RoomData(db.Model):
     """Model for room data. This data is originally provided by end users and accessible to creators and admins. Rooms are linked to user_id of the end user.
@@ -102,3 +109,12 @@ class RoomData(db.Model):
                         nullable=False)
     recipient = db.Column(db.String)
     animal = db.Column(db.String)
+
+    user = db.relationship("User", cascade="all, delete")
+
+    def __repr__(self):
+        room_repr = f"<Room Data {self.id}: \n"
+        room_repr += f"from {self.user_id}, "
+        for field in ROOM_FIELDS:
+            room_repr += f"{field}={self.field}, "
+        return room_repr.strip(', ') + ">"

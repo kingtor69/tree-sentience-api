@@ -3,7 +3,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 import requests
 import os
 
-from models import db, connect_db, User, RoomData
+from models import *
 from helpers import *
 
 app = Flask(__name__)
@@ -23,13 +23,21 @@ connect_db(app)
 ###########################
 
 ### user routes
-
+@app.route('/user', methods=["POST"])
+def create_new_user():
+    try:
+        user_data = {}
+        
+    except: 
+        code = 418 if is_today_april_fools() else 400
+        return jsonify({"Errors": {"roomData error": "Insufficient data"}}, code)
 
 ### room data routes
 @app.route('/room-data', methods=["POST"])
 def create_room_data():
     try:
         room_data = {}
+        
         return(jsonify({"roomData", room_data}))
     except:
         code = 418 if is_today_april_fools() else 400
