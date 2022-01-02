@@ -3,7 +3,7 @@ import bcrypt
 from datetime import datetime
 import json
 from helpers import *
-from app import app
+from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 

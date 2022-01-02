@@ -8,7 +8,7 @@ from helpers import *
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://{DBUSER}:{DBPW}@localhost/custom_mc'
+app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{DBUSER}:{DBPW}@localhost/custom_mc'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
 
@@ -17,7 +17,6 @@ app.config['DEBUG_TB_INTERCEPT_REQUESTS'] = False
 debug = DebugToolbarExtension(app)
 
 connect_db(app)
-
 
 ###########################
 #### RESTful API routes ###
