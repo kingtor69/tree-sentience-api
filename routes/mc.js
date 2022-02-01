@@ -3,26 +3,26 @@ const ExpressError = require("../expressError");
 const router = new express.Router();
 const jsonschema = require('jsonschema');
 const emailSchema = require('../schemas/emailSchema.json');
-const { respObject, aprilFoolsOrNo } = require('../helpers')
+const { respObject, aprilFoolsOrNo, sendEmail } = require('../helpers')
 
-/** POST / => {
- * payment_confirmation: {
-    * id,
-    * payer: {
-        * name,
-        * email
-    * },
-    * amount
- * }
- * form_data: {
-    * template,
-    * color,
-    * message,
-    * name,
-    * animal,
-    * recipient
- * }
-* } */
+// POST / => {
+//   payment_confirmation: {
+//     id,
+//     payer: {
+//       name,
+//       email
+//     },
+//     amount
+//   }
+//   form_data: {
+//     template,
+//     color,
+//     message,
+//     name,
+//     animal,
+//     recipient
+//   }
+// }
 
 router.post('/', async (req, res, next) => {
     try {
@@ -36,7 +36,7 @@ router.post('/', async (req, res, next) => {
         if ('errors' in resp) {
             const err = newExpressError(resp.errors, aprilFoolsOrNo(401));
         };
-        const email = sendEmail(respObject)
+        const sent = await sendEmail(respObject);
         return res.json({ email: message });
     } catch (err) {
         return next(err);

@@ -19,5 +19,8 @@
   "dependencies": {
     "express": "^4.17.2",
     "jsonschema": "^1.4.0"
+  },
+  "devDependencies": {
+    "supertest": "^6.2.2"
   }
 }

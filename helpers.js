@@ -1,9 +1,9 @@
 const { Email } = require('./smpt.js');
 
-const SecureToken = process.env.smptjs_secure_token || false;
-const Host = process.env.smptjs_host || false;
-const Username = process.env.smptjs_username || false;
-const Password = process.env.smptjs_password || false;
+const SecureToken = process.env.SMPTJS_SECURE_TOKEN || false;
+const Host = process.env.SMPTJS_HOST || false;
+const Username = process.env.SMPTJS_USERNAME || false;
+const Password = process.env.SMPTJS_PASSWORD || false;
 
 const To = process.env.mc_maker_email | false;
 const From = process.env.smptjs_from || false;
