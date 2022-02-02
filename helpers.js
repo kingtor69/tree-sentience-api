@@ -17,6 +17,7 @@ const aprilFoolsOrNo = eNum => {
 
 const formatEmail = (paymentConfirmation, formData) => {
   for (let key in ['animal', 'recipient']) {
+    debugger;
     if (!(key in formData)) {
       formData[key] = 'none chosen';
     }
