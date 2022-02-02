@@ -26,10 +26,6 @@
             }
         }
     ],
-    "required": [
-        "payment_confirmation",
-        "form_data"
-    ],
     "properties": {
         "payment_confirmation": {
             "$id": "#/properties/payment_confirmation",
