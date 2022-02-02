@@ -9,7 +9,7 @@ const mcRoutes = require("./routes/mc");
 app.use("/api/mc", mcRoutes);
 
 app.use((req, res, next) => {
-    const err = new ExpressError("Not Found", 404);
+    const err = new ExpressError("Four uh-oh Four", 404);
     return next(err);
 });
 
@@ -21,3 +21,5 @@ app.use((err, req, res, next) => {
         message: err.message
     });
 });
+
+module.exports = app;

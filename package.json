@@ -17,8 +17,11 @@
   },
   "homepage": "https://github.com/kingtor69/tree-sentience-api#readme",
   "dependencies": {
+    "error-stack-parser": "^2.0.6",
     "express": "^4.17.2",
-    "jsonschema": "^1.4.0"
+    "jsonschema": "^1.4.0",
+    "locus": "^2.0.4",
+    "pg": "^8.7.1"
   },
   "devDependencies": {
     "supertest": "^6.2.2"

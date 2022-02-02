@@ -24,7 +24,7 @@ const { respObject, aprilFoolsOrNo, sendEmail } = require('../helpers')
 //   }
 // }
 
-router.post('/', async (req, res, next) => {
+router.post('/confirmation', async (req, res, next) => {
     try {
         const validation = jsonschema.validate(req.body, emailSchema);
         if (!validation.valid) {

@@ -5,8 +5,8 @@ const Host = process.env.SMPTJS_HOST || false;
 const Username = process.env.SMPTJS_USERNAME || false;
 const Password = process.env.SMPTJS_PASSWORD || false;
 
-const To = process.env.mc_maker_email | false;
-const From = process.env.smptjs_from || false;
+const To = process.env.MC_MAKER_EMAIL | false;
+const From = process.env.SMPTJS_FROM || false;
 const Subject = "minecraft order in"
 
 const Body = (paymentConfirmation, formData) => {
