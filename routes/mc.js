@@ -32,12 +32,11 @@ router.post('/confirmation', async (req, res, next) => {
             const err = new ExpressError(listOfErrors, 400);
             return next(err);
         };
-        const email = respObject(req.body.paymentConfirmation, req.body.formData);
-        if ('errors' in resp) {
-            const err = newExpressError(resp.errors, aprilFoolsOrNo(401));
+        if ('errors' in res) {
+            const err = newExpressError(res.errors, aprilFoolsOrNo(400));
         };
         const sent = await sendEmail(respObject);
-        return res.json({ email: message });
+        return res.json({ email: respObject });
     } catch (err) {
         return next(err);
     };
