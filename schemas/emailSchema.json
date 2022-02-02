@@ -1,0 +1,218 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "title": "The root schema",
+    "description": "The root schema comprises the entire JSON document.",
+    "default": {},
+    "examples": [
+        {
+            "payment_confirmation": {
+                "id": "730361933S7740744",
+                "payer": {
+                    "name": "Stevie Steve",
+                    "email": "steve@stevie.com"
+                },
+                "amount": "5.65"
+            },
+            "form_data": {
+                "template": "castle",
+                "color": "magenta",
+                "message": "One Pod",
+                "name": "Wildquest",
+                "animal": "dolphin",
+                "email": "dolphins@wildquest.com",
+                "recipient": "Bobby Bob"
+            }
+        }
+    ],
+    "required": [
+        "payment_confirmation",
+        "form_data"
+    ],
+    "properties": {
+        "payment_confirmation": {
+            "$id": "#/properties/payment_confirmation",
+            "type": "object",
+            "title": "The payment_confirmation schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "examples": [
+                {
+                    "id": "730361933S7740744",
+                    "payer": {
+                        "name": "Stevie Steve",
+                        "email": "steve@stevie.com"
+                    },
+                    "amount": "5.65"
+                }
+            ],
+            "required": [
+                "id",
+                "amount"
+            ],
+            "properties": {
+                "id": {
+                    "$id": "#/properties/payment_confirmation/properties/id",
+                    "type": "string",
+                    "title": "The id schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "730361933S7740744"
+                    ]
+                },
+                "payer": {
+                    "$id": "#/properties/payment_confirmation/properties/payer",
+                    "type": "object",
+                    "title": "The payer schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": {},
+                    "examples": [
+                        {
+                            "name": "Stevie Steve",
+                            "email": "steve@stevie.com"
+                        }
+                    ],
+                    "required": [
+                        "name",
+                        "email"
+                    ],
+                    "properties": {
+                        "name": {
+                            "$id": "#/properties/payment_confirmation/properties/payer/properties/name",
+                            "type": "string",
+                            "title": "The name schema",
+                            "description": "An explanation about the purpose of this instance.",
+                            "default": "",
+                            "examples": [
+                                "Stevie Steve"
+                            ]
+                        },
+                        "email": {
+                            "$id": "#/properties/payment_confirmation/properties/payer/properties/email",
+                            "type": "string",
+                            "title": "The email schema",
+                            "description": "An explanation about the purpose of this instance.",
+                            "default": "",
+                            "examples": [
+                                "steve@stevie.com"
+                            ]
+                        }
+                    },
+                    "additionalProperties": true
+                },
+                "amount": {
+                    "$id": "#/properties/payment_confirmation/properties/amount",
+                    "type": "string",
+                    "title": "The amount schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "5.65"
+                    ]
+                }
+            },
+            "additionalProperties": true
+        },
+        "form_data": {
+            "$id": "#/properties/form_data",
+            "type": "object",
+            "title": "The form_data schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "examples": [
+                {
+                    "template": "castle",
+                    "color": "magenta",
+                    "message": "One Pod",
+                    "name": "Wildquest",
+                    "animal": "dolphin",
+                    "email": "dolphins@wildquest.com",
+                    "recipient": "Bobby Bob"
+                }
+            ],
+            "required": [
+                "template",
+                "color",
+                "message",
+                "name",
+                "email"
+            ],
+            "properties": {
+                "template": {
+                    "$id": "#/properties/form_data/properties/template",
+                    "type": "string",
+                    "title": "The template schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "castle"
+                    ]
+                },
+                "color": {
+                    "$id": "#/properties/form_data/properties/color",
+                    "type": "string",
+                    "title": "The color schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "magenta"
+                    ]
+                },
+                "message": {
+                    "$id": "#/properties/form_data/properties/message",
+                    "type": "string",
+                    "title": "The message schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "One Pod"
+                    ]
+                },
+                "name": {
+                    "$id": "#/properties/form_data/properties/name",
+                    "type": "string",
+                    "title": "The name schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "Wildquest"
+                    ]
+                },
+                "animal": {
+                    "$id": "#/properties/form_data/properties/animal",
+                    "type": "string",
+                    "title": "The animal schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "dolphin"
+                    ]
+                },
+                "email": {
+                    "$id": "#/properties/form_data/properties/email",
+                    "type": "string",
+                    "title": "The email schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "dolphins@wildquest.com"
+                    ]
+                },
+                "recipient": {
+                    "$id": "#/properties/form_data/properties/recipient",
+                    "type": "string",
+                    "title": "The recipient schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "Bobby Bob"
+                    ]
+                }
+            },
+            "additionalProperties": true
+        }
+    },
+    "additionalProperties": true
+}

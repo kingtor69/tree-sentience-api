@@ -1,4 +1,4 @@
-const { Email } = require('./smpt.js');
+const { Email } = require('./smtp.js');
 
 const SecureToken = process.env.SMPTJS_SECURE_TOKEN || false;
 const Host = process.env.SMPTJS_HOST || false;
@@ -42,7 +42,7 @@ if (!!To || !!From) {
     respObject.errors = {invalidEmailAddresses: "To and/or From email addresses are not found in server environment."} 
 } else if (SecureToken) {
     respObject = {
-        SecureToken,,
+        SecureToken,
         To,
         From,
         Subject,
@@ -68,7 +68,7 @@ const aprilFoolsOrNo = eNum => {
     return isAprilFools ? 418 : eNum;
 };
 
-const sendEmail = (emailObject) {
+const sendEmail = emailObject => {
     Email.send(emailObject).then(
         message => (message)
     );
