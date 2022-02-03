@@ -37,7 +37,11 @@ router.post('/confirmation', async (req, res, next) => {
             throw newExpressError(res.errors, aprilFoolsOrNo(400));
         };
         const email = new ConfirmationEmail(req.body);
-        return res.json(email);
+        if (process.env.NODE_ENV = "test") {
+            return res.json({email});
+        };
+        const sentEmail = email.sendEmail();
+        return res.json(sentEmail);
     } catch (err) {
         return next(err);
     };
