@@ -3,7 +3,7 @@ const ExpressError = require("../expressError");
 const router = new express.Router();
 const jsonschema = require('jsonschema');
 const emailSchema = require('../schemas/emailSchema.json');
-const { respObject, aprilFoolsOrNo, sendEmail } = require('../helpers');
+const ConfirmationEmail = require('../ConfirmationEmail');
 
 // POST / => {
 //   payment_confirmation: {
@@ -33,10 +33,10 @@ router.post('/confirmation', async (req, res, next) => {
             return next(err);
         };
         if ('errors' in res) {
-            const err = newExpressError(res.errors, aprilFoolsOrNo(400));
+            throw newExpressError(res.errors, aprilFoolsOrNo(400));
         };
-        const sent = await sendEmail(req.body);
-        return res.json(sent);
+        const email = new ConfirmationEmail(req.body);
+        return res.json(email);
     } catch (err) {
         return next(err);
     };

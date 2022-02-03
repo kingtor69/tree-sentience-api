@@ -23,7 +23,6 @@ class ConfirmationEmail {
   
   formatEmail () {
     for (let key in ['animal', 'recipient']) {
-      debugger;
       if (!(key in this.formData)) {
         this.formData[key] = 'none chosen';
       };
