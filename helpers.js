@@ -15,27 +15,27 @@ const aprilFoolsOrNo = eNum => {
   return isAprilFools ? 418 : eNum;
 };
 
-const formatEmail = (paymentConfirmation, formData) => {
+const formatEmail = ({payment_confirmation, form_data}) => {
   for (let key in ['animal', 'recipient']) {
     debugger;
-    if (!(key in formData)) {
-      formData[key] = 'none chosen';
-    }
+    if (!(key in form_data)) {
+      form_data[key] = 'none chosen';
+    };
   };
   
   const Body = `
-    PAYMENT CONFIRMATION ${paymentConfirmation.id}:
-    payer name: ${paymentConfirmation.payer.name}, 
-    payer email: ${paymentConfirmation.payer.email}, 
-    amount: ${paymentConfirmation.amount}. 
+    PAYMENT CONFIRMATION ${payment_confirmation.id}:
+    payer name: ${payment_confirmation.payer.name}, 
+    payer email: ${payment_confirmation.payer.email}, 
+    amount: ${payment_confirmation.amount}. 
     
     ROOM ORDER INFO:
-    template: ${formData.template}, 
-    color: ${formData.color}, 
-    message: ${formData.message}, 
-    name (from): ${formData.name}, 
-    animal: ${formData.animal}, 
-    recipient: ${formData.recipient}
+    template: ${form_data.template}, 
+    color: ${form_data.color}, 
+    message: ${form_data.message}, 
+    name (from): ${form_data.name}, 
+    animal: ${form_data.animal}, 
+    recipient: ${form_data.recipient}
   `
 
   const isEmailValid = () => {
@@ -71,10 +71,11 @@ const formatEmail = (paymentConfirmation, formData) => {
   return respObject;
 };
     
-const sendEmail = emailObject => {
-  Email.send(emailObject).then(
+const sendEmail = email => {
+  Email.send(email).then(
     message => (message)
   );
+  return { email }
 };
 
 module.exports = {
