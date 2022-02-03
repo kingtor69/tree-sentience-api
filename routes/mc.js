@@ -4,6 +4,7 @@ const router = new express.Router();
 const jsonschema = require('jsonschema');
 const emailSchema = require('../schemas/emailSchema.json');
 const ConfirmationEmail = require('../ConfirmationEmail');
+const { aprilFoolsOrNo } = require('../helpers');
 
 // POST / => {
 //   payment_confirmation: {

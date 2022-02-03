@@ -1,4 +1,4 @@
-const { formatEmail } = require("../helpers");
+const ConfirmationEmail = require('../ConfirmationEmail');
 
 const schemaObj = {
   payment_confirmation: {
@@ -44,7 +44,7 @@ const didItMyselfJSON = `
   }
 `
 
-const expectedResponseObject = formatEmail(schemaObj.payment_confirmation, schemaObj.formData);
+const expectedResponseObject = new ConfirmationEmail(schemaObj);
 
 module.exports = {
   schemaObj,
