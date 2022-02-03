@@ -9,7 +9,7 @@ class ConfirmationEmail {
     this.Username = process.env.SMPTJS_USERNAME || false;
     this.Password = process.env.SMPTJS_PASSWORD || false;
     this.noTokenValidEmail = this.Host && this.Username && this.Password
-    this.To = process.env.MC_MAKER_EMAIL | false;
+    this.To = process.env.MC_MAKER_EMAIL || false;
     this.From = process.env.SMPTJS_FROM || false;
     this.Subject = "minecraft order in";
     this.emailObject = false;
@@ -23,31 +23,29 @@ class ConfirmationEmail {
     };
     
     const Body = `
-      PAYMENT CONFIRMATION ${this.paymentConfirmation.id}:
+      PAYMENT CONFIRMATION ${this.paymentConfirmation.id}: 
       payer name: ${this.paymentConfirmation.payer.name}, 
       payer email: ${this.paymentConfirmation.payer.email}, 
       amount: ${this.paymentConfirmation.amount}. 
   
-      ROOM ORDER INFO:
+      ROOM ORDER INFO: 
       template: ${this.formData.template}, 
       color: ${this.formData.color}, 
       message: ${this.formData.message}, 
       name (from): ${this.formData.name}, 
       animal: ${this.formData.animal}, 
-      recipient: ${this.formData.recipient}
+      recipient: ${this.formData.recipient}.
     `
-
-  
-    if (!To || !From) {
-      this.emailObject.errors = { invalidEmailAddresses: "To and/or From email addresses are not found in server environment." }
-    } else if (this.SecureToken) {
+    
+    if (this.SecureToken) {
       this.emailObject = {
         SecureToken: this.SecureToken,
         To: this.To,
         From: this.From,
         Subject: this.Subject,
-        Body: this.Body
+        Body
       }
+      debugger;
     } else if (this.noTokenValidEmail) {
       this.emailObject = {
         Host: this.Host,
@@ -57,10 +55,10 @@ class ConfirmationEmail {
         From: this.From,
         Subject: this.Subject,
         Body: this.Body
-      }
+      } 
     } else {
       this.emailObject.errors = { invalidEnvironmentalVariables: "there are not sufficient environmental variables on the server to send an email" };
-    }
+    };
     
     return this.emailObject;
   };
@@ -72,10 +70,9 @@ class ConfirmationEmail {
       );
     };
 
-    return { email : emailObject }
+    return { email: this.emailObject }
   };
 
-  formatEmail();
 };
 
 module.exports = ConfirmationEmail;

@@ -6,6 +6,6 @@ const aprilFoolsOrNo = eNum => {
     return isAprilFools ? 418 : eNum;
 };
 
-module.exports {
+module.exports = {
     aprilFoolsOrNo
 };
