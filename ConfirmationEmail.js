@@ -53,7 +53,7 @@ class ConfirmationEmail {
         To: this.To,
         From: this.From,
         Subject: this.Subject,
-        Body: this.Body
+        Body
       } 
     } else {
       this.emailObject.errors = { invalidEnvironmentalVariables: "there are not sufficient environmental variables on the server to send an email" };

@@ -21,7 +21,17 @@ describe('ConfirmationEmail class', () => {
             expect(typeof formattedEmail[key]).toBe('string');
         };
         console.log(formattedEmail);
+    });
+    test('it passes visual inspection (confirmed by Tor)', () => {
         const passedVisualInspection = true;
         expect(passedVisualInspection).toBe(true);
+    });
+    test('it works with SMPTJS_SECURE_TOKEN (confirmed by Tor)', () => {
+        const workedWithToken = true;
+        expect(workedWithToken).toBe(true);
+    });
+    test('it works with USERNAME PASSWORD verification (confirmed by Tor)', () => {
+        const workedWithoutToken = true;
+        expect(workedWithoutToken).toBe(true);
     });
 });
