@@ -64,10 +64,20 @@ const expectedEmailObject = {
 
 const expectedResponseObject = { email: expectedEmailObject};
 
+const bogusRequest = {
+  payment_confirmation: {
+    bananas: "yummy"
+  },
+  form_data: {
+    form: "what form?"
+  }
+};
+
 module.exports = {
   schemaObj,
   schemaJSON,
   didItMyselfJSON,
   expectedResponseObject,
-  expectedEmailObject
+  expectedEmailObject,
+  bogusRequest
 }

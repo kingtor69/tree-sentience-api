@@ -27,6 +27,9 @@ const { aprilFoolsOrNo } = require('../helpers');
 
 router.post('/confirmation', async (req, res, next) => {
     try {
+        if (!req) {
+            const err = new ExpressError('request can not be empty', aprilFoolsOrNo(400));
+        };
         const validation = jsonschema.validate(req.body, emailSchema);
         if (!validation.valid) {
             const listOfErrors = validation.errors.map(e => e.stack);
@@ -39,10 +42,10 @@ router.post('/confirmation', async (req, res, next) => {
         const email = new ConfirmationEmail(req.body);
         email.formatEmail();
         if (process.env.NODE_ENV = "test") {
-            return res.json({email: email.emailObject});
+            return res.status(201).json({email: email.emailObject});
         };
         const emailSent = email.sendEmail();
-        return res.json(emailSent);
+        return res.status(201).json(emailSent);
     } catch (err) {
         return next(err);
     };
