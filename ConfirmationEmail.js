@@ -34,7 +34,7 @@ class ConfirmationEmail {
       message: ${this.formData.message}, 
       name (from): ${this.formData.name}, 
       animal: ${this.formData.animal}, 
-      recipient: ${this.formData.recipient}.
+      recipient: ${this.formData.recipient}. 
     `
     
     if (this.SecureToken) {
@@ -45,7 +45,6 @@ class ConfirmationEmail {
         Subject: this.Subject,
         Body
       }
-      debugger;
     } else if (this.noTokenValidEmail) {
       this.emailObject = {
         Host: this.Host,

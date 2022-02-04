@@ -58,7 +58,7 @@ const expectedEmailObject = {
       message: ${schemaObj.form_data.message}, 
       name (from): ${schemaObj.form_data.name}, 
       animal: ${schemaObj.form_data.animal}, 
-      recipient: ${schemaObj.form_data.recipient}.
+      recipient: ${schemaObj.form_data.recipient}. 
   `
 };
 
