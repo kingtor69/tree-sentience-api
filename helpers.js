@@ -1,4 +1,7 @@
-
+/*
+** this is being deployed manually with manual version management
+** this code last updated 20220205-1311mst
+*/
 
 const aprilFoolsOrNo = eNum => {
     const datetime = new Date(Date.now());

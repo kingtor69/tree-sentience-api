@@ -1,3 +1,8 @@
+/*
+** this is being deployed manually with manual version management
+** this code last updated 20220205-1311mst
+*/
+
 const { Email } = require('./smtp.js');
 
 class ConfirmationEmail {
