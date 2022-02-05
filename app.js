@@ -1,3 +1,8 @@
+/*
+** this is being deployed manually with manual version management
+** this code last updated 20220205-1437mst
+*/
+
 const express = require("express");
 const app = express();
 
@@ -5,6 +10,8 @@ app.use(express.json());
 
 const ExpressError = require("./expressError");
 const mcRoutes = require("./routes/mc");
+
+if (process.env.NODE_ENV !== 'test' && process.env.NODE_ENV !== 'development') app.listen(8888);
 
 app.use("/api/mc", mcRoutes);
 
