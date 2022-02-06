@@ -11,7 +11,7 @@ app.use(express.json());
 const ExpressError = require("./expressError");
 const mcRoutes = require("./routes/mc");
 
-if (process.env.NODE_ENV !== 'test' && process.env.NODE_ENV !== 'development') app.listen(8888);
+if (!process.env.NODE_ENV || process.env.NODE_ENV !== 'test' && process.env.NODE_ENV !== 'development') app.listen(8888);
 
 app.use("/api/mc", mcRoutes);
 
